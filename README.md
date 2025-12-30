@@ -1,154 +1,132 @@
-# 🚀 User Management System
+# User Management System
 
-A full-stack, dockerized **User Management System** built with **Flask**, **React**, and **SQLite**. This application demonstrates a production-ready architecture with JWT authentication, role-based access control, and a modern, responsive user interface.
+## 1. Project Overview & Purpose
 
-![Python](https://img.shields.io/badge/Python-3.9-blue)
-![React](https://img.shields.io/badge/React-18-blue)
-![Flask](https://img.shields.io/badge/Flask-3.0-green)
-![Docker](https://img.shields.io/badge/Docker-Compose-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
+The **User Management System** is a robust, full-stack web application designed to handle user authentication, role-based access control, and profile management. It was built to demonstrate a production-ready architecture using modern technologies, emphasizing security, scalability, and developer experience.
 
----
-
-## ✨ Features
-
-### � Authentication & Security
-- **JWT Authentication**: Secure stateless authentication using JSON Web Tokens.
-- **Role-Based Access Control (RBAC)**: Distinct permissions for `Admin` and `User` roles.
-- **Secure Password Hashing**: Uses `bcrypt` for storing passwords securely.
-- **Protected Routes**: Frontend routing ensures restricted access to authorized users only.
-
-### 👤 User Management
-- **Dashboard**: Personalized user dashboard showing profile status and roles.
-- **Profile Management**: Users can update their profile details and change passwords.
-- **Registration**: Self-service user signup with email validation.
-
-### 🛡️ Admin Capabilities
-- **Admin Dashboard**: Centralized view of all registered users.
-- **User Control**: Ability to **activate** or **deactivate** user accounts.
-- **Pagination**: Efficiently browse through large lists of users.
-
-### 🐳 DevOps & Infrastructure
-- **Dockerized**: Fully containerized backend and frontend for consistent environments.
-- **Hot Reload**: Development environment configured for instant code updates.
-- **Persistent Storage**: SQLite database changes persist across container restarts.
+**Key Features:**
+*   **Secure Authentication**: JWT-based login and signup with password hashing.
+*   **Role-Based Access Control (RBAC)**: Distinct 'Admin' and 'User' roles with protected routes.
+*   **Admin Dashboard**: Centralized management to activate/deactivate users.
+*   **Profile Management**: Self-service profile updates and password changes.
+*   **Dockerized**: Fully containerized for consistent development and deployment.
 
 ---
 
-## 🛠️ Tech Stack
+## 2. Tech Stack Used
 
-### Backend
-- **Framework**: Flask (Python)
-- **Database**: SQLite (SQLAlchemy ORM)
-- **Migrations**: Flask-Migrate (Alembic)
-- **Authentication**: PyJWT
-- **Server**: Gunicorn (Production-grade WSGI server)
-
-### Frontend
-- **Framework**: React.js (Vite)
-- **Styling**: Modern CSS3 with responsive design
-- **State Management**: Context API
-- **HTTP Client**: Axios
-
-### Infrastructure
-- **Containerization**: Docker & Docker Compose
-- **Orchestration**: Docker Compose
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Backend** | **Flask (Python)** | REST API framework |
+| | **SQLAlchemy** | ORM for database interactions |
+| | **SQLite** | Lightweight, file-based database (Local Dev) |
+| | **PyJWT** | JSON Web Token authentication |
+| **Frontend** | **React.js** | Library for building user interfaces |
+| | **Vite** | Next-generation frontend build tool |
+| | **Axios** | Promise-based HTTP client |
+| | **CSS3** | Modern, responsive styling |
+| **Infrastructure** | **Docker** | Containerization platform |
+| | **Docker Compose** | Multi-container orchestration |
 
 ---
 
-## 🚀 Getting Started
+## 3. Setup Instructions (Frontend & Backend)
+
+The easiest way to run the application is using **Docker Compose**, which sets up both the frontend and backend automatically.
 
 ### Prerequisites
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+*   Docker & Docker Compose installed
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/akashcodejames/user-management-system-sqlite-docker.git
-cd user-management-system-sqlite-docker
-```
+### Steps
 
-### 2. Run with Docker Compose
-Start the application in detached mode:
-```bash
-docker-compose up --build -d
-```
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/akashcodejames/user-management-system-sqlite-docker.git
+    cd user-management-system-sqlite-docker
+    ```
 
-### 3. Access the Application
-- **Frontend**: [http://localhost:5173](http://localhost:5173)
-- **Backend API**: [http://localhost:5001](http://localhost:5001)
+2.  **Start the Application**
+    ```bash
+    docker-compose up --build -d
+    ```
 
----
+3.  **Access the App**
+    *   **Frontend**: [http://localhost:5173](http://localhost:5173)
+    *   **Backend**: [http://localhost:5001](http://localhost:5001)
 
-## 🔑 Default Admin Credentials
-
-Upon the first run, an admin user is **automatically created**. 
-
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | `admin@example1.com` | `Admin@12345678` |
-
-> Required login to access the Admin Panel.
+4.  **Login with Default Admin**
+    *   **Email**: `admin@example1.com`
+    *   **Password**: `Admin@12345678`
 
 ---
 
-## 📂 Project Structure
+## 4. Environment Variables
 
-```bash
-.
-├── backend/                 # Flask Backend
-│   ├── app/                 # Application Factory & Blueprints
-│   │   ├── auth/            # Authentication Routes
-│   │   ├── users/           # User Management Routes
-│   │   ├── admin/           # Admin Routes
-│   │   └── models.py        # Database Models
-│   ├── instance/            # Persistent SQLite Database
-│   ├── migrations/          # Database Migrations
-│   ├── create_admin.py      # Script to seed admin user
-│   ├── config.py            # Configuration settings
-│   └── Dockerfile           # Backend Docker config
-│
-├── frontend/                # React Frontend
-│   ├── src/
-│   │   ├── components/      # Reusable UI Components
-│   │   ├── pages/           # Application Pages
-│   │   ├── context/         # Auth Context
-│   │   └── services/        # API Service calls
-│   └── Dockerfile           # Frontend Docker config
-│
-└── docker-compose.yml       # Service Orchestration
+The application uses the following environment variables. **Do not commit actual values to version control.**
+
+### Backend (`/backend/.env`)
+
+```ini
+# Flask Configuration
+FLASK_APP=run.py
+FLASK_ENV=development
+FLASK_DEBUG=1
+
+# Database
+DATABASE_URL=sqlite:////app/instance/app.db
+
+# Security
+SECRET_KEY=<your-secret-key>
+JWT_SECRET_KEY=<your-jwt-secret-key>
+
+# CORS
+CORS_ORIGINS=http://localhost:5173
+```
+
+### Frontend (`/frontend/.env`)
+
+```ini
+# API Connection
+VITE_API_URL=http://localhost:5001/api
 ```
 
 ---
 
-## � API Endpoints
+## 5. Deployment Instructions
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| `POST` | `/api/auth/login` | User Login | No |
-| `POST` | `/api/auth/signup` | User Registration | No |
-| `GET` | `/api/auth/me` | Get Current User | Yes |
-| `GET` | `/api/users/profile` | Get User Profile | Yes |
-| `PUT` | `/api/users/profile` | Update Profile | Yes |
-| `GET` | `/api/admin/users` | List All Users | **Admin** |
-| `PUT` | `/api/admin/users/:id/activate` | Activate User | **Admin** |
+This project is configured for easy deployment using Docker.
 
----
+### Option A: VPS / Docker Host (Recommended)
+1.  **Provision a server** (e.g., Ubuntu on AWS, DigitalOcean).
+2.  **Install Docker & Docker Compose**.
+3.  **Clone the repo** onto the server.
+4.  **Create production `.env` files** with secure secrets.
+5.  **Run**: `docker-compose up -d --build`.
 
-## 🔧 Troubleshooting
-
-**Database not found / Reset Database**
-If you need to reset the database to a clean state:
-```bash
-docker-compose down
-rm -rf backend/instance
-docker-compose up --build -d
-```
-
-**Port Conflicts**
-Ensure ports `5173` (Frontend) and `5001` (Backend) are not in use by other applications.
+### Option B: Cloud Platforms (Render/Railway)
+*   **Backend**: Deploy the `./backend` folder as a Python service. Set `DATABASE_URL` to a persistent PostgreSQL instance.
+*   **Frontend**: Deploy the `./frontend` folder as a Static Site. Set `VITE_API_URL` to your backend's URL.
 
 ---
 
-## 📄 License
+## 6. API Documentation
 
-This project is open-source and available under the [MIT License](LICENSE).
+The API follows RESTful conventions. Below is a summary of available endpoints.
+
+### Authentication
+*   `POST /api/auth/signup` - Register a new user
+*   `POST /api/auth/login` - Authenticate and receive JWT
+*   `GET /api/auth/me` - Get current user details
+*   `POST /api/auth/logout` - Logout
+
+### Users
+*   `GET /api/users/profile` - Get profile information
+*   `PUT /api/users/profile` - Update profile details
+*   `PUT /api/users/password` - Change password
+
+### Admin
+*   `GET /api/admin/users` - List all users (paginated)
+*   `PUT /api/admin/users/<id>/activate` - Activate a user account
+*   `PUT /api/admin/users/<id>/deactivate` - Deactivate a user account
+
+> **Note**: For full specification, import the collection into Postman or inspect the routes in `backend/app`.
