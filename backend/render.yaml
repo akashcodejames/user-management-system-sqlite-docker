@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: user-management-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn run:app"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: user-management-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_EXPIRATION_HOURS
+        value: 24
+      - key: CORS_ORIGINS
+        sync: false
+
+databases:
+  - name: user-management-db
+    databaseName: user_management
+    user: user_management_user
+    plan: free
