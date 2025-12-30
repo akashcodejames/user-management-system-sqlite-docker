@@ -73,20 +73,16 @@ Thumbs.db
 # Docker
 .dockerignore
 
-# Deployment files (exclude from git)
+# Artifacts & Guides (Excluded from repo)
 DEPLOYMENT_GUIDE.md
 QUICK_START.md
-
-# Walkthrough and artifact files
+DOCKER_SETUP.md
+DOCKER_QUICK_REF.md
 walkthrough*.md
 task*.md
 implementation_plan*.md
 *_walkthrough.md
 setup_summary.md
 complete_setup_walkthrough.md
-
-# PDF files
 *.pdf
-
-# Misc
 .gemini/
